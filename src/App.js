@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import Welcome from './components/Welcome/Welcome';
+import GrievanceForm from './components/GrievanceForm/GrievanceForm';
+import MusicToggle from './components/MusicToggle/MusicToggle';
 
 function App() {
+  const [showForm, setShowForm] = useState(false);
+  const [complaints, setComplaints] = useState([]);
+
+  useEffect(() => {
+    const storedComplaints = JSON.parse(localStorage.getItem('complaints')) || [];
+    setComplaints(storedComplaints);
+  }, []);
+
+  const handleComplaintSubmit = (newComplaint) => {
+    const updatedComplaints = [...complaints, newComplaint];
+    setComplaints(updatedComplaints);
+    localStorage.setItem('complaints', JSON.stringify(updatedComplaints));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      {!showForm ? (
+        <Welcome onStart={() => setShowForm(true)} />
+      ) : (
+        <GrievanceForm 
+          onComplaintSubmit={handleComplaintSubmit} 
+          onBack={() => setShowForm(false)}
+        />
+      )}
+      <MusicToggle />
     </div>
   );
 }
 
 export default App;
+

@@ -1,0 +1,41 @@
+.welcomeScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* slightly more opaque background and moderate blur for readability */
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 3rem;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+}
+
+.welcomeScreen h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.welcomeScreen p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.startButton {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  border: none;
+  background-color: #fff;
+  color: #ff7eb9;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
