@@ -4,11 +4,24 @@ import emailjs from 'emailjs-com';
 import Confetti from 'react-confetti';
 import styles from './GrievanceForm.module.css';
 
+// Severity options - what would fix this grievance
+const SEVERITY_OPTIONS = [
+  'A chunky Oreo Silk would fix this 🍫',
+  'A sweet apology text would help 💬',
+  'Buy me some dessert and we\'re good 🧋',
+  'I need a long hug right now 🤗',
+  'I want flowers AND chocolates 💐🍫',
+  'Full day pampering required 👸',
+  'Weekend getaway 🤘',
+  'You\'re in BIG trouble mister 😈',
+];
+
 const GrievanceForm = ({ onComplaintSubmit, onBack }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     mood: '😐',
+    severity: SEVERITY_OPTIONS[0],
   });
   const [isSending, setIsSending] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -72,6 +85,7 @@ const GrievanceForm = ({ onComplaintSubmit, onBack }) => {
       title: formData.title,
       description: formData.description,
       mood: formData.mood,
+      severity: formData.severity,
       date: new Date().toLocaleString(),
       attached_files: attachedFiles.map(f => f.name).join(', ') || 'None'
     };
@@ -91,7 +105,7 @@ const GrievanceForm = ({ onComplaintSubmit, onBack }) => {
           setShowSuccess(true);
           setShowConfetti(true);
           onComplaintSubmit({ ...formData, date: templateParams.date, status: 'Pending Apology' });
-          setFormData({ title: '', description: '', mood: '😐' });
+          setFormData({ title: '', description: '', mood: '😐', severity: SEVERITY_OPTIONS[0] });
           setAttachedFiles([]);
           setTimeout(() => {
             setShowSuccess(false);
@@ -162,6 +176,15 @@ const GrievanceForm = ({ onComplaintSubmit, onBack }) => {
             <option>😐</option>
             <option>😅</option>
             <option>❤️</option>
+          </select>
+        </div>
+
+        <div className={styles.severitySelector}>
+          <span>Severity:</span>
+          <select name="severity" value={formData.severity} onChange={handleChange}>
+            {SEVERITY_OPTIONS.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
           </select>
         </div>
         
